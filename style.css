@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clicks Per Second</title>
+  <style>
+    #counter {
+      font-size: 24px;
+      text-align: center;
+      margin-top: 50px;
+    }
+    #click-area {
+      width: 300px;
+      height: 200px;
+      background-color: lightgray;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="counter">0 CPS</div>
+  <div id="click-area">Click to start!</div>
+
+  <script>
+    let startTime;
+    let endTime;
+    let clicks = 0;
+    let cps = 0;
+
+    document.getElementById("click-area").addEventListener("click", function() {
+      if (!startTime) {
+        startTime = new Date();
+        document.getElementById("click-area").innerHTML = "Click as fast as you can!";
+      } else {
+        clicks++;
+        if (clicks >= 5) {
+          endTime = new Date();
+          const deltaTime = endTime - startTime;
+          cps = Math.round((clicks / deltaTime) * 1000);
+          document.getElementById("counter").innerHTML = `${cps} CPS`;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
